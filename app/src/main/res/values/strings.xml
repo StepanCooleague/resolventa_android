@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Resolventa</string>
+    <string name="base_url">http://192.168.43.38:8080/process/</string>
+    <string name="nst">natural_sequent_type</string>
+    <string name="errt">error_type</string>
+    <string name="test_seq">[(p->q)&amp;(p->r)] |- [p->(q&amp;r)]</string>
+</resources>

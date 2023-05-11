@@ -27,11 +27,13 @@
                 android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Format: [p] |- [p]"
+                android:hint="@string/seq_format"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/submit_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <Button
                 android:id="@+id/submit_button"
@@ -40,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
-                android:text="Submit"
+                android:text="@string/submitbtn"
                 app:layout_constraintBaseline_toBaselineOf="@+id/editText"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -70,7 +72,8 @@
                 android:id="@+id/imageView"
                 android:scaleType="centerCrop"
                 android:background="#FFFFFF"
-                android:src="@drawable/screen_saver"/>
+                android:src="@drawable/screen_saver"
+                android:contentDescription="@string/img_description" />
 
         </androidx.cardview.widget.CardView>
     </FrameLayout>
@@ -82,7 +85,7 @@
         android:enabled="false"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:contentDescription="Share"
+        android:contentDescription="@string/sharebtn"
         android:src="@drawable/ic_share"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewContainer"
         app:layout_constraintEnd_toEndOf="@+id/imageViewContainer" />

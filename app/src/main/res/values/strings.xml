@@ -6,4 +6,8 @@
     <string name="test_seq">[(p->q)&amp;(p->r)] |- [p->(q&amp;r)]</string>
     <string name="temp_img">temp_image.png</string>
     <string name="pdf_path">result.pdf</string>
+    <string name="seq_format">Format: [p] |- [p]</string>
+    <string name="submitbtn">Submit</string>
+    <string name="img_description">Sequent solution</string>
+    <string name="sharebtn">Share</string>
 </resources>

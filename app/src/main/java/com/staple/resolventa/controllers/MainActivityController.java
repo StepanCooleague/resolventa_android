@@ -29,7 +29,7 @@ public class MainActivityController implements Controller {
     }
 
     public void on_click_submit(){
-        model.post_and_solve(activity, new Problem(cur_type, activity.getString(R.string.test_seq)));
+        model.post_and_solve(activity, new Problem(cur_type, activity.editText.getText().toString()));
     }
 
     public void show_result(Bitmap bitmap){

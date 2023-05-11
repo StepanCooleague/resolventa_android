@@ -14,6 +14,7 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.staple.resolventa.R;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageView img;
     public Button button;
+    public EditText editText;
 
     private MainActivityController controller;
 
@@ -46,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         controller = new MainActivityController(this);
         img = findViewById(R.id.imageView);
-        button = findViewById(R.id.submitbtn);
+        button = findViewById(R.id.submit_button);
+        editText = findViewById(R.id.editText);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

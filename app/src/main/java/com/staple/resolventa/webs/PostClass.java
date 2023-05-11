@@ -2,6 +2,8 @@ package com.staple.resolventa.webs;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.pdf.PdfRenderer;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
@@ -11,6 +13,7 @@ import com.staple.resolventa.activities.MainActivity;
 import com.staple.resolventa.controllers.Controller;
 import com.staple.resolventa.controllers.MainActivityController;
 import com.staple.resolventa.execruns.FileToCache;
+import com.staple.resolventa.execruns.PdfToBitmap;
 import com.staple.resolventa.prosol.ErrorProSolTypeException;
 import com.staple.resolventa.prosol.ProSolTyper;
 import com.staple.resolventa.prosol.Problem;
@@ -48,25 +51,6 @@ public class PostClass {
         call.enqueue(callback);
     }
 
-    private Bitmap pdf_to_bitmap(File file, int pageNumber) throws IOException {
-        PdfRenderer mPdfRenderer;
-        PdfRenderer.Page mPdfPage;
-
-        ParcelFileDescriptor fileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
-        mPdfRenderer = new PdfRenderer(fileDescriptor);
-        mPdfPage = mPdfRenderer.openPage(pageNumber);
-
-        Bitmap bitmap = Bitmap.createBitmap(mPdfPage.getWidth(),
-                mPdfPage.getHeight(),
-                Bitmap.Config.ARGB_8888);
-        mPdfPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-
-        mPdfPage.close();
-        mPdfRenderer.close();
-
-        return bitmap;
-    }
-
     public void post_and_solve(Context context, Problem problem){
         post(problem, new Callback<Solution>() {
             @Override
@@ -76,7 +60,7 @@ public class PostClass {
                     try {
                         ProSolTyper.check_prosol_type(context, result);
                         String filePath = FileToCache.save(context, result.solution_content, "result.pdf");
-                        controller.show_result(pdf_to_bitmap(new File(filePath), 0));
+                        controller.show_result(PdfToBitmap.render(new File(filePath), 0));
                     } catch (IOException | ErrorProSolTypeException e) {
                         controller.display_exception(e);
                     }

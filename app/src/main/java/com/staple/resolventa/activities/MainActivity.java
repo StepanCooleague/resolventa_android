@@ -6,13 +6,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,25 +41,40 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     public ImageView img;
-    public Button button;
-    public EditText editText;
+    public Button submit_btn;
+    public EditText edit_text;
 
     private MainActivityController controller;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         controller = new MainActivityController(this);
         img = findViewById(R.id.imageView);
-        button = findViewById(R.id.submit_button);
-        editText = findViewById(R.id.editText);
-        button.setOnClickListener(new View.OnClickListener() {
+        submit_btn = findViewById(R.id.submit_button);
+        edit_text = findViewById(R.id.editText);
+        submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 controller.on_click_submit();
             }
         });
+        img.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent event) {
+                return controller.on_touch(event);
+            }
+        });
+        controller.restore_state(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        controller.save_state(outState);
     }
 
 }

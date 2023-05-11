@@ -9,6 +9,7 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.staple.resolventa.R;
 import com.staple.resolventa.activities.MainActivity;
 import com.staple.resolventa.controllers.Controller;
 import com.staple.resolventa.controllers.MainActivityController;
@@ -59,8 +60,10 @@ public class PostClass {
                     Solution result = response.body();
                     try {
                         ProSolTyper.check_prosol_type(context, result);
-                        String filePath = FileToCache.save(context, result.solution_content, "result.pdf");
-                        controller.show_result(PdfToBitmap.render(new File(filePath), 0));
+                        String file_path = FileToCache.save(context, result.solution_content, context.getString(R.string.pdf_path));
+                        controller.setPdf_path(file_path);
+                        controller.show_result(PdfToBitmap.render(new File(file_path), 0));
+                        controller.set_sharing(true);
                     } catch (IOException | ErrorProSolTypeException e) {
                         controller.display_exception(e);
                     }

@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.staple.resolventa.R;
 import com.staple.resolventa.controllers.MainActivityController;
 import com.staple.resolventa.execruns.FileToCache;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageView img;
     public Button submit_btn;
+    public FloatingActionButton share_btn;
     public EditText edit_text;
 
     private MainActivityController controller;
@@ -54,11 +56,18 @@ public class MainActivity extends AppCompatActivity {
         controller = new MainActivityController(this);
         img = findViewById(R.id.imageView);
         submit_btn = findViewById(R.id.submit_button);
+        share_btn = findViewById(R.id.share_button);
         edit_text = findViewById(R.id.editText);
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 controller.on_click_submit();
+            }
+        });
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.share_pdf();
             }
         });
         img.setOnTouchListener(new View.OnTouchListener()

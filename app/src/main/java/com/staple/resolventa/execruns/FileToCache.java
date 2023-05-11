@@ -13,10 +13,11 @@ import java.io.OutputStream;
 
 public class FileToCache {
     public static String save(Context context, String base64File, String fileName) throws IOException {
-        byte[] decodedFile = Base64.decode(base64File, Base64.DEFAULT);
+        byte[] decoded_file = Base64.decode(base64File, Base64.DEFAULT);
         File file = new File(context.getCacheDir(), fileName);
-        FileOutputStream outputStream = new FileOutputStream(file);
-        outputStream.write(decodedFile);
+        FileOutputStream output_stream = new FileOutputStream(file);
+        output_stream.write(decoded_file);
+        output_stream.close();
         return file.getAbsolutePath();
     }
 

@@ -2,6 +2,7 @@ package com.staple.resolventa.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public Button submit_btn;
     public FloatingActionButton share_btn;
     public EditText edit_text;
+    public ConstraintLayout main_layout;
 
     private MainActivityController controller;
 
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         submit_btn = findViewById(R.id.submit_button);
         share_btn = findViewById(R.id.share_button);
         edit_text = findViewById(R.id.editText);
+        main_layout = findViewById(R.id.main_layout);
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

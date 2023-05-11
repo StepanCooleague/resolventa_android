@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.staple.resolventa.R;
 import com.staple.resolventa.activities.MainActivity;
 import com.staple.resolventa.execruns.PdfToBitmap;
@@ -57,8 +58,10 @@ public class MainActivityController implements Controller {
     }
 
     public void display_exception(Exception e){
-        //TODO display exception
-        Toast.makeText(activity, e.getMessage(), Toast.LENGTH_LONG).show();
+        Snackbar snackbar = Snackbar.make(activity.main_layout, e.getMessage(), Snackbar.LENGTH_LONG);
+        snackbar.setTextColor(0xFFFFFFFF);
+        snackbar.setBackgroundTint(0xFFB71C1C);
+        snackbar.show();
     }
 
     public void on_click_submit(){

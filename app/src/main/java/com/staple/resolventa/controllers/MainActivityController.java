@@ -2,17 +2,13 @@ package com.staple.resolventa.controllers;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
@@ -24,6 +20,7 @@ import com.staple.resolventa.prosol.Problem;
 import com.staple.resolventa.webs.PostClass;
 
 import java.io.File;
+import java.util.Objects;
 
 public class MainActivityController implements Controller {
     private static final String KEY_EDIT_TEXT = "key_edit_text";
@@ -31,11 +28,11 @@ public class MainActivityController implements Controller {
     private static final String KEY_ENABLED_SHARING = "key_enabled_sharing";
     private static final String KEY_PDF_PATH = "key_pdf_path";
 
-    private String cur_type;
+    private final String cur_type;
     private String pdf_path;
-    private MainActivity activity;
-    private PostClass model;
-    private Animation fade_in;
+    private final MainActivity activity;
+    private final PostClass model;
+    private final Animation fade_in;
     private float mx, my;
 
     public MainActivityController(MainActivity activity){
@@ -58,7 +55,7 @@ public class MainActivityController implements Controller {
     }
 
     public void display_exception(Exception e){
-        Snackbar snackbar = Snackbar.make(activity.main_layout, e.getMessage(), Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(activity.main_layout, Objects.requireNonNull(e.getMessage()), Snackbar.LENGTH_LONG);
         snackbar.setTextColor(0xFFFFFFFF);
         snackbar.setBackgroundTint(0xFFB71C1C);
         snackbar.show();

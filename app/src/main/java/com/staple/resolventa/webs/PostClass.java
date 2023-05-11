@@ -1,18 +1,11 @@
 package com.staple.resolventa.webs;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.pdf.PdfRenderer;
-import android.os.ParcelFileDescriptor;
-import android.util.Log;
-import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 
 import com.staple.resolventa.R;
-import com.staple.resolventa.activities.MainActivity;
 import com.staple.resolventa.controllers.Controller;
-import com.staple.resolventa.controllers.MainActivityController;
 import com.staple.resolventa.execruns.FileToCache;
 import com.staple.resolventa.execruns.PdfToBitmap;
 import com.staple.resolventa.prosol.ErrorProSolTypeException;
@@ -21,11 +14,8 @@ import com.staple.resolventa.prosol.Problem;
 import com.staple.resolventa.prosol.Solution;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,9 +23,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostClass {
-    private PostInterface postInterface;
-    private String baseUrl;
-    private Controller controller;
+    private final PostInterface postInterface;
+    private final String baseUrl;
+    private final Controller controller;
 
     public PostClass(String baseUrl, Controller controller) {
         this.baseUrl = baseUrl;
@@ -55,10 +45,11 @@ public class PostClass {
     public void post_and_solve(Context context, Problem problem){
         post(problem, new Callback<Solution>() {
             @Override
-            public void onResponse(Call<Solution> call, Response<Solution> response) {
+            public void onResponse(@NonNull Call<Solution> call, @NonNull Response<Solution> response) {
                 if (response.isSuccessful()) {
                     Solution result = response.body();
                     try {
+                        if(result == null) return;
                         ProSolTyper.check_prosol_type(context, result);
                         String file_path = FileToCache.save(context, result.solution_content, context.getString(R.string.pdf_path));
                         controller.setPdf_path(file_path);
@@ -70,7 +61,8 @@ public class PostClass {
 
                 } else {
                     try {
-                        controller.display_exception(new Exception(response.errorBody().string()));
+                        if (response.errorBody() != null)
+                            controller.display_exception(new Exception(response.errorBody().string()));
                     } catch (IOException e) {
                         controller.display_exception(e);
                     }
@@ -78,7 +70,7 @@ public class PostClass {
             }
 
             @Override
-            public void onFailure(Call<Solution> call, Throwable t) {
+            public void onFailure(@NonNull Call<Solution> call, @NonNull Throwable t) {
                 controller.display_exception(new Exception(t));
             }
         });

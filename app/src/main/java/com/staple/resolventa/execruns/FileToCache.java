@@ -1,15 +1,11 @@
 package com.staple.resolventa.execruns;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Base64;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class FileToCache {
     public static String save(Context context, String base64File, String fileName) throws IOException {

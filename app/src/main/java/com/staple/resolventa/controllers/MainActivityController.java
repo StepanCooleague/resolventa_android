@@ -17,28 +17,32 @@ import com.staple.resolventa.R;
 import com.staple.resolventa.activities.MainActivity;
 import com.staple.resolventa.execruns.PdfToBitmap;
 import com.staple.resolventa.prosol.Problem;
-import com.staple.resolventa.webs.PostClass;
+import com.staple.resolventa.webs.PostProblem;
 
 import java.io.File;
 import java.util.Objects;
 
 public class MainActivityController implements Controller {
-    private static final String KEY_EDIT_TEXT = "key_edit_text";
-    private static final String KEY_IMAGE_URI = "key_image_uri";
-    private static final String KEY_ENABLED_SHARING = "key_enabled_sharing";
-    private static final String KEY_PDF_PATH = "key_pdf_path";
+    private final String KEY_EDIT_TEXT;
+    private final String KEY_IMAGE_URI;
+    private final String KEY_ENABLED_SHARING;
+    private final String KEY_PDF_PATH;
 
     private final String cur_type;
     private String pdf_path;
     private final MainActivity activity;
-    private final PostClass model;
+    private final PostProblem postman;
     private final Animation fade_in;
     private float mx, my;
 
     public MainActivityController(MainActivity activity){
         this.activity = activity;
-        model = new PostClass(activity.getString(R.string.base_url), this);
+        postman = new PostProblem(activity.getString(R.string.base_url), this);
         cur_type = activity.getString(R.string.nst);
+        KEY_EDIT_TEXT = activity.getString(R.string.key_edit_text);
+        KEY_IMAGE_URI = activity.getString(R.string.key_image_uri);
+        KEY_ENABLED_SHARING = activity.getString(R.string.key_enabled_sharing);
+        KEY_PDF_PATH = activity.getString(R.string.key_pdf_path);
         fade_in = AnimationUtils.loadAnimation(activity, R.anim.crossfade);
     }
 
@@ -62,7 +66,7 @@ public class MainActivityController implements Controller {
     }
 
     public void on_click_submit(){
-        model.post_and_solve(activity, new Problem(cur_type, activity.edit_text.getText().toString()));
+        postman.post_and_handle(activity, new Problem(cur_type, activity.edit_text.getText().toString()));
     }
 
     public void show_result(Bitmap bitmap){

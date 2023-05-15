@@ -8,7 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
 
-public interface PostInterface {
+public interface PostInterface { //interface for retrofit posting
     @POST
     Call<Solution> createPost(@Url String url, @Body Problem body);
 }

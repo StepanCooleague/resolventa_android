@@ -10,4 +10,9 @@
     <string name="submitbtn">Submit</string>
     <string name="img_description">Sequent solution</string>
     <string name="sharebtn">Share</string>
+    <string name="server_err">Caught an error on the server side: </string>
+    <string name="key_edit_text">key_edit_text</string>
+    <string name="key_image_uri">key_image_uri</string>
+    <string name="key_enabled_sharing">key_enabled_sharing</string>
+    <string name="key_pdf_path">key_pdf_path</string>
 </resources>

@@ -18,6 +18,7 @@ import com.staple.resolventa.activities.MainActivity;
 import com.staple.resolventa.execruns.PdfToBitmap;
 import com.staple.resolventa.prosol.Problem;
 import com.staple.resolventa.webs.PostProblem;
+import com.staple.resolventa.webs.ResponseHandler;
 
 import java.io.File;
 import java.util.Objects;
@@ -37,7 +38,7 @@ public class MainActivityController implements Controller {
 
     public MainActivityController(MainActivity activity){
         this.activity = activity;
-        postman = new PostProblem(activity.getString(R.string.base_url), this);
+        postman = new PostProblem(activity.getString(R.string.base_url));
         cur_type = activity.getString(R.string.nst);
         KEY_EDIT_TEXT = activity.getString(R.string.key_edit_text);
         KEY_IMAGE_URI = activity.getString(R.string.key_image_uri);
@@ -66,7 +67,7 @@ public class MainActivityController implements Controller {
     }
 
     public void on_click_submit(){
-        postman.post_and_handle(activity, new Problem(cur_type, activity.edit_text.getText().toString()));
+        postman.post_and_handle(new Problem(cur_type, activity.edit_text.getText().toString()), new ResponseHandler(this));
     }
 
     public void show_result(Bitmap bitmap){

@@ -23,9 +23,9 @@ public class ResponseHandler implements Callback<Solution> {
     private final Context context;
     private final Controller controller;
 
-    public ResponseHandler(Context context, Controller controller) {
-        this.context = context;
+    public ResponseHandler(Controller controller) {
         this.controller = controller;
+        this.context = controller.getActivity();
     }
 
     @Override
